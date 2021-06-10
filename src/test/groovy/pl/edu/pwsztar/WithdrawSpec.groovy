@@ -12,7 +12,7 @@ class WithdrawSpec extends Specification {
     }
 
     @Unroll
-    def "should withdraw #amount to #accountNumber"() {
+    def "should withdraw #amount from #accountNumber"() {
 
         given:"Bank"
             bank.createAccount()
@@ -27,5 +27,6 @@ class WithdrawSpec extends Specification {
         accountNumber   | amount | withdrawAmount  | expectedResult
         1               | 250    | 100             | true
         2               | 2      | 123             | false
+        123             |   213  | 124             | false
     }
 }

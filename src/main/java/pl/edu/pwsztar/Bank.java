@@ -43,7 +43,21 @@ class Bank implements BankOperation {
     }
 
     public boolean withdraw(int accountNumber, int amount) {
-        return false;
+        if (amount < 0) {
+            return false;
+        }
+        Account account = accounts.get(accountNumber);
+        if (account == null) {
+            return false;
+        }
+        int newAmount = account.getAmount() - amount;
+        if(newAmount<0){
+            return false;
+        }
+        account.setAmount(newAmount);
+        accounts.put(accountNumber, account);
+
+        return true;
     }
 
     public boolean transfer(int fromAccount, int toAccount, int amount) {
