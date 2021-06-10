@@ -1,22 +1,45 @@
 package pl.edu.pwsztar;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 // TODO: Prosze dokonczyc implementacje oraz testy jednostkowe
 // TODO: Prosze nie zmieniac nazw metod - wszystkie inne chwyty dozwolone
 // TODO: (prosze jedynie trzymac sie dokumentacji zawartej w interfejsie BankOperation)
 class Bank implements BankOperation {
 
+    private Map<Integer, Account> accounts = new HashMap<Integer, Account>();
+
     private int accountNumber = 0;
 
     public int createAccount() {
-        return ++accountNumber;
+        accountNumber++;
+        accounts.put(accountNumber, new Account(accountNumber, 0));
+        return accountNumber;
     }
 
     public int deleteAccount(int accountNumber) {
-        return 0;
+
+        Account account = accounts.remove(accountNumber);
+        if(account==null){
+            return ACCOUNT_NOT_EXISTS;
+        }
+        return account.getAmount();
     }
 
     public boolean deposit(int accountNumber, int amount) {
-        return false;
+        if (amount < 0) {
+            return false;
+        }
+        Account account = accounts.get(accountNumber);
+        if (account == null) {
+            return false;
+        }
+        account.setAmount(amount);
+        accounts.put(accountNumber, account);
+
+        return true;
     }
 
     public boolean withdraw(int accountNumber, int amount) {
