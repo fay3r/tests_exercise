@@ -16,7 +16,6 @@ class DeleteAccountSpec extends Specification{
 
         given:"Bank"
             bank.createAccount()
-            bank.createAccount()
             bank.deposit(accountNumber,amount)
 
 
@@ -28,7 +27,7 @@ class DeleteAccountSpec extends Specification{
         where:
             accountNumber   | amount  | expectedResult
             1               | 250     | 250
-            123             | 1245    | -1
+            3               | 1245    | -1
     }
 
 }
